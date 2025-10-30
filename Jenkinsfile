@@ -4,7 +4,7 @@ pipeline {
     parameters {
         choice(
             name: 'ACTION',
-            choices: ['plan', 'apply', 'destroy'],
+            choices: ['apply', 'destroy'],
             description: 'Select the Terraform action to perform'
         )
     }
@@ -16,28 +16,19 @@ pipeline {
     }
 
     stages {
-        stage('git-checkout') {
+        stage('Git Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/Manthan0421/project2.git'
             }
         }
 
-        stage('terraform-init') {
+        stage('Terraform Init') {
             steps {
                 sh 'terraform init'
             }
         }
 
-        stage('terraform-plan') {
-            when {
-                expression { params.ACTION == 'plan' }
-            }
-            steps {
-                sh 'terraform plan'
-            }
-        }
-
-        stage('terraform-apply') {
+        stage('Terraform Apply') {
             when {
                 expression { params.ACTION == 'apply' }
             }
@@ -46,7 +37,7 @@ pipeline {
             }
         }
 
-        stage('terraform-destroy') {
+        stage('Terraform Destroy') {
             when {
                 expression { params.ACTION == 'destroy' }
             }
