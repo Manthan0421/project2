@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('git-checkout') {
             steps {
-                git 'https://github.com/Manthan0421/project2.git'
+                git branch: 'main', url: 'https://github.com/Manthan0421/project2.git'
             }
         }
 
